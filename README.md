@@ -138,9 +138,9 @@ DELETE    | api/tasks/{task}
 
 #### Postman
 
-Inside the repository there is a file called XXXX
+Inside the repository there is a file called `Personal_Task_Manager.postman_collection.json`
 with a collection of calls to the endpoints, which can be imported into POSTMAN to test each of these endpoints, and to test the correct operation of the API.
 
 ## React App
 
-The second part of the challenge, and the application that consumes the data provided by this API, can be found in the following repo Task Manager React App.
+The second part of the challenge, and the application that consumes the data provided by this API, can be found in the following repo Task Manager React App (https://github.com/santiagocarlos/task-manager-react).
