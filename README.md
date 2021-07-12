@@ -1,62 +1,146 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Laravel API - Task list Manager 
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This project corresponds to the coding challenge to apply for the position of Fullstack Developer at InfoCasas.
 
-## About Laravel
+This repository contains a REST API developed in Laravel, which corresponds to a task management application.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Pre-requisites
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+For the correct operation of this project, it is necessary that you have the following dependencies installed
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Apache
+- PHP
+- MySQL
+- Composer 
 
-## Learning Laravel
+### Softwares
+- Postman
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Installing pre-requisites
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+The steps described here are for Ubuntu or Debian-derived distros
 
-## Laravel Sponsors
+##### Install Apache 
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Using Ubuntu’s package manager, `apt`:
 
-### Premium Partners
+```bash
+$ sudo apt update
+$ sudo apt install apache2
+```
+##### Install MySQL
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+```bash
+$ sudo apt install mysql-server
+```
+When the installation is finished, it’s recommended that you run a security script that comes pre-installed with MySQL. This script will remove some insecure default settings and lock down access to your database system. Start the interactive script by running:
 
-## Contributing
+```bash
+$ sudo mysql_secure_installation
+```
+And following the steps
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+##### Install PHP
+```bash
+$ sudo apt install php libapache2-mod-php php-mysql
+```
 
-## Code of Conduct
+Once the installation is finished, you can run the following command to confirm your PHP version:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+$ php -v
+```
 
-## Security Vulnerabilities
+```bash
+Output
+PHP 7.4.3 (cli) (built: Mar 26 2020 20:24:23) ( NTS )
+Copyright (c) The PHP Group
+Zend Engine v3.4.0, Copyright (c) Zend Technologies
+    with Zend OPcache v7.4.3, Copyright (c), by Zend Technologies
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+At this point, your LAMP stack is fully operational
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Installation of project
+
+Open a terminal and clone this repository using
+
+```bash
+$ git clone https://github.com/santiagocarlos/task-manager-laravel-api
+```
+
+Change to the newly created repository folder with
+
+```bash
+$ cd task-manager-laravel-api
+```
+
+After cloning the repo, run `composer install`
+
+Create a copy of the `.env.example` file in a new file and name it `.env` 
+
+Create a database and preferably name it `task-manager`
+
+Then edit the following values
+
+```bash
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_db_name
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
+Once composer solves the dependencies and discovers the packages, it runs the migrations and the laravel seeders to dump the database structure and its data
+
+```bash
+php artisan migrate --seed
+```
+To make it easier you can build the application server using
+
+```bash
+php artisan serve
+```
+You will normally see the following message
+
+```bash
+Starting Laravel development server: http://127.0.0.1:8000
+[Mon Jul 12 08:54:45 2021] PHP 7.4.3 Development Server (http://127.0.0.1:8000) started
+.
+.
+.
+```
+
+`http://127.0.0.1:8000` is the URL of project.
+
+Since the project is an API, the base URL for making requests is
+
+`http://127.0.0.1:8000/api`
+
+
+#### Definition of routes
+
+The project is treated as a REST API, therefore the routes are defined in the `/routes/api.php` file
+
+The REST approach is used and these are the routes generated using `Route::apiResource()`
+
+
+```
+GET       | api/tasks   
+POST      | api/tasks
+PATCH     | api/tasks/checkAll
+POST      | api/tasks/search
+GET       | api/tasks/{task}
+PUT/PATCH | api/tasks/{task} 
+DELETE    | api/tasks/{task}
+```
+
+#### Postman
+
+Inside the repository there is a file called XXXX
+with a collection of calls to the endpoints, which can be imported into POSTMAN to test each of these endpoints, and to test the correct operation of the API.
+
+## React App
+
+The second part of the challenge, and the application that consumes the data provided by this API, can be found in the following repo Task Manager React App.
