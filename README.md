@@ -9,8 +9,8 @@ This repository contains a REST API developed in Laravel, which corresponds to a
 For the correct operation of this project, it is necessary that you have the following dependencies installed
 
 - Apache
-- PHP
 - MySQL
+- PHP
 - Composer 
 
 ### Softwares
@@ -61,6 +61,56 @@ Zend Engine v3.4.0, Copyright (c) Zend Technologies
 
 At this point, your LAMP stack is fully operational
 
+##### Install Composer
+
+For Installing PHP Composer
+
+Start by updating the local repository lists by enter the following in a command line:
+
+```bash
+$ sudo apt-get update
+```
+Download the Composer installer, use the command:
+
+```bash
+$ php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+```
+Verify Integrity of the Download
+1. Visit the [Composer Public Keys](https://composer.github.io/pubkeys.html) page. Copy the Installer Signature (SHA-384).
+
+2. Set the code shell variable:
+```bash
+$ COMPOSER=48e3236262b34d30969dca3c37281b3b4bbe3221bda826ac6a9a62d6444cdb0dcd0615698a5cbe587c3f0fe57a54d8f5
+```
+
+3. Run the script below to compare the official hash against the one you downloaded:
+
+```bash
+$ php -r "if (hash_file('SHA384', 'composer-setup.php') === '$COMPOSER') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+```
+
+The script will either tell you the download is verified, or that it has been corrupted. If it’s corrupted, re-download the file.
+
+#### Install PHP Composer
+
+1. Installing PHP Composer requires curl, unzip, and a few other utilities. Install them by entering the following:
+
+```bash
+$ sudo apt-get install curl php-cli php-mbstring git unzip
+```
+
+Install Composer as a command accessible from the whole system.
+
+2. To install to `/usr/local/bin` enter:
+
+```
+$ sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+```
+3. Once the installer finishes, verify the installation:
+
+```
+$ composer --version
+```
 
 ## Installation of project
 
@@ -143,4 +193,4 @@ with a collection of calls to the endpoints, which can be imported into POSTMAN 
 
 ## React App
 
-The second part of the challenge, and the application that consumes the data provided by this API, can be found in the following repo Task Manager React App (https://github.com/santiagocarlos/task-manager-react).
+The second part of the challenge, and the application that consumes the data provided by this API, can be found in the following repo [Task Manager React App](https://github.com/santiagocarlos/task-manager-react).
