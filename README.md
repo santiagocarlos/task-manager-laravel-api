@@ -78,10 +78,7 @@ $ php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 Verify Integrity of the Download
 1. Visit the [Composer Public Keys](https://composer.github.io/pubkeys.html) page. Copy the Installer Signature (SHA-384).
 
-2. Set the code shell variable:
-```bash
-$ COMPOSER=48e3236262b34d30969dca3c37281b3b4bbe3221bda826ac6a9a62d6444cdb0dcd0615698a5cbe587c3f0fe57a54d8f5
-```
+
 
 3. Run the script below to compare the official hash against the one you downloaded:
 
@@ -130,9 +127,44 @@ After cloning the repo, run `composer install`
 
 Create a copy of the `.env.example` file in a new file and name it `.env` 
 
-Create a database and preferably name it `task-manager`
+Create a database and preferably name it `task_manager`
 
+To create the database, you must first create a user and grant it the permissions so that it can operate on mysql and the databases.
+
+You can do this using the following commands
+
+1. At the command line, log in to MySQL as the root user:
+```bash
+$ mysql -u root -p
+```
+
+2. Type the MySQL root password, and then press Enter.
+
+3. To create a database user, type the following command. Replace "username" with the user you want to create, and replace "password" with the user's password:
+
+```bash
+$ GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password';
+```
+4. Type `\q` to exit the mysql program.
+
+5. To log in to MySQL as the user you just created, type the following command. Replace username with the name of the user you created in step 3:
+
+```bash
+$ mysql -u username -p
+```
+6. Type the user's password, and then press Enter.
+
+7. To create a database, type the following command. Replace dbname with the name of the database that you want to create:
 Then edit the following values
+
+```bash
+$ CREATE DATABASE dbname;
+```
+Type `\q` to exit the mysql program.
+
+Yoy already have a user and database created.
+
+The next, is edit the file `.env`
 
 ```bash
 DB_CONNECTION=mysql
@@ -142,6 +174,8 @@ DB_DATABASE=your_db_name
 DB_USERNAME=your_username
 DB_PASSWORD=your_password
 ```
+And save the file.
+
 Once composer solves the dependencies and discovers the packages, it runs the migrations and the laravel seeders to dump the database structure and its data
 
 ```bash
