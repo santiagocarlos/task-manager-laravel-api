@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use App\Http\Requests\TaskRequest;
 use Illuminate\Support\Facades\Log;
@@ -10,6 +11,7 @@ use App\Http\Resources\Task as TaskResource;
 
 class TaskController extends Controller
 {
+    use ApiResponser;
     /**
      * Display a listing of the resource.
      *
@@ -20,8 +22,6 @@ class TaskController extends Controller
         try {
             $tasks = Task::all();
             $tasksList = TaskResource::collection($tasks);
-            $message = '';
-            $code = 200;
         } catch (\Exception $e) {
             Log::error(
                 'Something went wrong while getting the tasks from the database',
@@ -30,16 +30,11 @@ class TaskController extends Controller
                 ]
             );
             $error = true;
-            $message = "Something went wrong while getting the tasks from the database";
-            $code = 404;
         }
 
-        return response()->json([
-            'error' => $error ?? false,
-            'message' => $message,
-            'data' => $tasksList,
-            'code' => $code, 
-            ]); 
+        if(isset($error))
+            return $this->errorResponse('Something went wrong while getting the tasks from the database', 500);
+        return $this->successResponse('OK', $tasksList, 200);
     }
 
     /**
@@ -53,8 +48,6 @@ class TaskController extends Controller
         try {
             $tasks = Task::where('title', 'like', '%'.$request->title.'%')->get();
             $tasksList = TaskResource::collection($tasks);
-            $message = '';
-            $code = 200;
         } catch (\Exception $e) {
             Log::error(
                 'Something went wrong while getting the tasks from the database',
@@ -63,16 +56,11 @@ class TaskController extends Controller
                 ]
             );
             $error = true;
-            $message = "Something went wrong while getting the tasks from the database";
-            $code = 404;
         }
-
-        return response()->json([
-            'error' => $error ?? false,
-            'message' => $message,
-            'data' => $tasksList,
-            'code' => $code, 
-            ]); 
+        
+        if(isset($error))
+            return $this->errorResponse('Something went wrong while getting the tasks from the database', 500);
+        return $this->successResponse('OK', $tasksList, 200);
     }
 
     /**
@@ -85,10 +73,6 @@ class TaskController extends Controller
         try {
             $task = Task::create($request->validated());
             $new_task = new TaskResource($task);
-
-            $message = 'Task created successfully';
-            $code = 200;
-
         } catch (\Exception $e) {
             Log::error(
                 'Something went wrong while storing the task into the database',
@@ -101,12 +85,9 @@ class TaskController extends Controller
             $code = 404;
         }
 
-        return response()->json([
-            'error'     => $error ?? false,
-            'message'   => $message,
-            'data'      => $new_task,
-            'code'      => $code, 
-            ]);
+        if(isset($error))
+            return $this->errorResponse('Something went wrong while storing the task into the database', 500);
+        return $this->successResponse('Task created successfully', $new_task, 200);
 
     }
 
@@ -137,9 +118,6 @@ class TaskController extends Controller
     {
         try {
             $task->update($request->validated());
-            $message    = 'Task updated successfully';
-            $code       = 200;
-
         } catch (\Exception $e) {
             Log::error(
                 'Something went wrong when trying to update the task in the database',
@@ -148,16 +126,11 @@ class TaskController extends Controller
                 ]
             );
             $error      = true;
-            $message    = "Something went wrong when trying to update the task in the database";
-            $code       = 404;
         } 
 
-        return response()->json([
-            'error'     => $error ?? false,
-            'message'   => '',
-            'data'      => $task,
-            'code'      => 200, 
-            ]);
+        if(isset($error))
+            return $this->errorResponse('Something went wrong when trying to update the task in the database', 500);
+        return $this->successResponse('Task updated successfully', $task, 200);
     }
 
     /**
@@ -171,8 +144,6 @@ class TaskController extends Controller
         try {
             $tasksUpdated = Task::query()->update($request->only(['completed']));
             $tasks = Task::all();
-            $message    = 'Tasks updated successfully';
-            $code       = 200;
 
         } catch (\Exception $e) {
             Log::error(
@@ -186,12 +157,9 @@ class TaskController extends Controller
             $code       = 404;
         } 
 
-        return response()->json([
-            'error'     => $error ?? false,
-            'message'   => '',
-            'data'      => $tasks,
-            'code'      => 200, 
-            ]);
+        if(isset($error))
+            return $this->errorResponse('Something went wrong when trying to update the tasks in the database', 500);
+        return $this->successResponse('Tasks updated successfully', $tasks, 200);
     }
 
     /**
@@ -204,10 +172,6 @@ class TaskController extends Controller
     {
         try {
             $task       = Task::where('id', $task->id)->delete();
-            
-            $message    = "Task deleted successfully";
-            $code       = 200;
-
         } catch (\Exception $e) {
             Log::error(
                 'Something went wrong trying to delete the task in the database',
@@ -216,15 +180,10 @@ class TaskController extends Controller
                 ]
             );
             $error      = true;
-            $message    = 'Something went wrong trying to delete the task in the database';
-            $code       = 201;
         }
 
-
-        return response()->json([
-            'error'     => $error ?? false,
-            'message'   => $message,
-            'code'      => $code, 
-            ]);
+        if(isset($error))
+            return $this->errorResponse('Something went wrong trying to delete the task in the database', 500);
+        return $this->successResponse('Task deleted successfully', '', 200);
     }
 }
