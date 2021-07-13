@@ -11,7 +11,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8001/api/tasks",
+					"raw": "http://127.0.0.1:8000/api/tasks",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -154,7 +154,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8001/api/tasks/search",
+					"raw": "http://127.0.0.1:8000/api/tasks/search",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -188,7 +188,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8001/api/tasks/checkAll",
+					"raw": "http://127.0.0.1:8000/api/tasks/checkAll",
 					"protocol": "http",
 					"host": [
 						"127",
