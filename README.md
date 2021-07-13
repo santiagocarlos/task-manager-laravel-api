@@ -178,6 +178,14 @@ And save the file.
 
 Once composer solves the dependencies and discovers the packages, it runs the migrations and the laravel seeders to dump the database structure and its data
 
+Run the following command to set a key to the application
+
+```bash
+$ php artisan key:generate
+```
+
+Then
+
 ```bash
 php artisan migrate --seed
 ```
